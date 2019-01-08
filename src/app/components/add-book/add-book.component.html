@@ -22,12 +22,12 @@
                      required>
           </div>
           <div class="alert alert-danger" *ngIf="bookAuthor.invalid && bookAuthor.dirty">Required</div>
-          <div class="form-group" *ngFor="let link of book.link; let i = index">
+          <div class="form-group" *ngFor="let link of book.links; let i = index">
               <label>Link: {{link.type}}</label>
-              <input type="text" class="form-control" name="{{book.link[i].type}}" [(ngModel)]="book.link[i].type"
+              <input type="text" class="form-control" name="{{book.links[i].type}}" [(ngModel)]="book.links[i].type"
                      #book{{link.type}}="ngModel">
               <label>Link: {{link.link}}</label>
-              <input type="text" class="form-control" name="{{book.link[i].link}}" [(ngModel)]="book.link[i].link"
+              <input type="text" class="form-control" name="{{book.links[i].link}}" [(ngModel)]="book.links[i].link"
                        #book{{link.link}}="ngModel">
           </div>
           <div class="add-links mb-3">

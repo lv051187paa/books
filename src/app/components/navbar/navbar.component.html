@@ -1,18 +1,56 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" routerLink="/">Book Store</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/" routerLinkActive="active"
-                   [routerLinkActiveOptions]="{exact: true}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/about" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">About</a>
-            </li>
-
-        </ul>
-    </div>
+  <a class="navbar-brand" routerLink="/">Book Store</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto" *ngIf="isLogged">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Home</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/about"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >About</a
+        >
+      </li>
+    </ul>
+  </div>
+  <span class="navbar-text mr-2"> {{ userName }} </span>
+  <button class="btn btn-danger" *ngIf="isLogged" (click)="logout()">
+    Logout
+  </button>
+  <button
+    [routerLink]="['/login']"
+    routerLinkActive="router-link-active"
+    class="btn btn-warning"
+    *ngIf="!isLogged"
+  >
+    Login
+  </button>
+  <button
+    [routerLink]="['/register']"
+    routerLinkActive="router-link-active"
+    class="btn btn-info ml-2"
+    *ngIf="!isLogged"
+  >
+    Register
+  </button>
 </nav>

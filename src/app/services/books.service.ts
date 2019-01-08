@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
 
 import { Book } from '../models/Book';
 
@@ -7,46 +9,39 @@ import { Book } from '../models/Book';
   providedIn: 'root'
 })
 export class BooksService {
-  books: Book[] = [
-    {
-      id: '377222df-f41d-49b0-ba88-7c7e4506a0ad',
-      name: 'Harry Potter',
-      author: 'Joane Roaling',
-      description: 'About the boy who lives',
-      link: [
-        {
-          type: 'epub',
-          link: 'link'
-        },
-        {
-          type: 'pdf',
-          link: 'link'
-        }
-      ]
-    }
-  ];
+  booksCollection: AngularFirestoreCollection<Book>;
+  bookDoc: AngularFirestoreDocument<Book>;
 
-  constructor() {}
+  books: Observable<Book[]>;
+  book: Observable<Book>;
 
-  getBooks = () => of(this.books);
+  constructor(
+    private afs: AngularFirestore
+  ) {
+    this.booksCollection = this.afs.collection<Book>('books');
+  }
+
+  getBooks = () => {
+    this.books = this.booksCollection.snapshotChanges().pipe(map(collections => collections.map(document => {
+      const data = document.payload.doc.data() as Book;
+      data.id = document.payload.doc.id;
+      return data;
+    })));
+    return this.books;
+  };
 
   getBookById = (id: string) => {
-    const book = this.books.find((bookItem: Book) => bookItem.id === id);
-    return of(book);
+
+    return of('');
   }
 
   addBook = (book: Book) => {
-    this.books.push(book);
+
     return of(book);
   }
 
   editBook = (book: Book) => {
-    this.books = this.books.map(bookItem => {
-      if (bookItem.id === book.id) {
-        return book;
-      }
-      return bookItem;
-    });
+
     return of(book);
   }
 

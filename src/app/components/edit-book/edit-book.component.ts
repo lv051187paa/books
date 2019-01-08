@@ -24,9 +24,9 @@ export class EditBookComponent implements OnInit {
 
   ngOnInit() {
     this.bookId = this.activatedRoute.snapshot.params['id'];
-    this.bookService
-      .getBookById(this.bookId)
-      .subscribe(book => (this.book = book));
+    // this.bookService
+    //   .getBookById(this.bookId)
+    //   .subscribe(book => (this.book = book));
   }
 
   editBook = () => {

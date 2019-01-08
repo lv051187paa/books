@@ -15,7 +15,7 @@ export class AddBookComponent implements OnInit {
     name: '',
     description: '',
     author: '',
-    link: []
+    links: []
   };
 
   constructor(
@@ -27,7 +27,7 @@ export class AddBookComponent implements OnInit {
 
   ngOnInit() {}
 
-  addLink = () => this.book.link.push({ type: 'pdf', link: 'http://' });
+  addLink = () => this.book.links.push({ type: 'pdf', link: 'http://' });
 
   saveBook = (book: Book) => {
     this.bookService

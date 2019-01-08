@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="text-center mb-4 mt-4">
+          <span class="text-primary">Books pannel </span>Login
+        </h1>
+        <form novalidate #form="ngForm" (ngSubmit)="onLogin()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="email"
+              [(ngModel)]="email"
+              name="email"
+              #emailInput="ngModel"
+              required
+            />
+          </div>
+          <div class="alert alert-danger" *ngIf="emailInput.invalid && emailInput.dirty">Required</div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              [(ngModel)]="password"
+              name="password"
+              #passwordInput="ngModel"
+              required
+            />
+          </div>
+          <div class="alert alert-danger" *ngIf="passwordInput.invalid && passwordInput.dirty">Required</div>
+          <button class="btn btn-primary btn-block" [disabled]="form.invalid">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

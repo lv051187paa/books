@@ -11,10 +11,20 @@ import { AboutComponent } from './components/about/about.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 import { BooksService } from './services/books.service';
 import { IdService } from './services/id.service';
-import {HelpersService} from './services/helpers.service';
+import { HelpersService } from './services/helpers.service';
+import { LoginComponent } from './components/login/login.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guard/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
+import { MatchDirective } from './directives/match.directive';
 
 @NgModule({
   declarations: [
@@ -24,15 +34,22 @@ import {HelpersService} from './services/helpers.service';
     EditBookComponent,
     AboutComponent,
     NotFoundComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginComponent,
+    RegisterComponent,
+    MatchDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
+    AngularFireAuthModule
+
   ],
-  providers: [BooksService, IdService, HelpersService],
+  providers: [BooksService, IdService, HelpersService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
